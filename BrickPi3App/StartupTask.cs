@@ -15,12 +15,13 @@ using BrickPi3;
 using BrickPi3.Models;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using BrickPi3.Movement;
 
 // The Background Application template is documented at http://go.microsoft.com/fwlink/?LinkID=533884&clcid=0x409
 
 namespace BrickPi3App
 {
-    public sealed class StartupTask : IBackgroundTask
+    public sealed partial class StartupTask : IBackgroundTask
     {
         private BackgroundTaskDeferral deferral;
         private Brick brick = new Brick();
@@ -31,12 +32,23 @@ namespace BrickPi3App
             brick.InitSPI();
             try
             {
-                TestBrickDetails();
-                TestSensors();
-                TestRunMotors();
-                TestMotorEncoder();
-                TestMotorDPS();
-                TestMotorPosition();
+                // uncomment any of the test to run it
+                //
+                // Tests directly using the brick low level driver
+                //
+                //TestBrickDetails();
+                //TestSensors();
+                //TestRunMotors();
+                //TestMotorEncoder();
+                //TestMotorDPS();
+                //TestMotorPosition();
+                // 
+                // Test using the hich level classes
+                //
+                //TestMotor1Motor().Wait();
+                //TestMotor().Wait();
+                //TestMotorEvents();
+                //TestVehicule().Wait();
             }
             catch (Exception ex)
             {

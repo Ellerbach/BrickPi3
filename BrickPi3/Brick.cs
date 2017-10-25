@@ -22,13 +22,13 @@ namespace BrickPi3
 {
     public sealed class Brick
     {
-        
+
         // To store the Sensor types as well as date to be sent when it's an I2C sensor
         SENSOR_TYPE[] SensorType = { SENSOR_TYPE.NONE, SENSOR_TYPE.NONE, SENSOR_TYPE.NONE, SENSOR_TYPE.NONE };
         byte[] I2CInBytes = { 0, 0, 0, 0 };
 
         //Initernals to initalize the SPI
-        private SpiDevice BrickPiSPI = null;
+        static private SpiDevice BrickPiSPI = null;
         private const int CHIP_SELECT_lINE = 1;
         private const string DEVICE_FRIENDLY_NAME = "SPI0";
         private BrickPiVoltage brickPiVoltage = new BrickPiVoltage();
@@ -39,7 +39,9 @@ namespace BrickPi3
         // up to 254 addresses supported
         public byte SPI_Address { get; set; }
         public BrickPiInfo BrickPi3Info { get; internal set; }
-        public BrickPiVoltage BrickPi3Voltage { get
+        public BrickPiVoltage BrickPi3Voltage
+        {
+            get
             {
                 brickPiVoltage.Voltage3V3 = get_voltage_3v3();
                 brickPiVoltage.Voltage5V = get_voltage_5v();
@@ -66,24 +68,27 @@ namespace BrickPi3
                 settings.Mode = SpiMode.Mode0;  //http://tightdev.net/SpiDev_Doc.pdf
                 settings.DataBitLength = 8;
                 settings.SharingMode = SpiSharingMode.Exclusive;
-
-                string aqs = SpiDevice.GetDeviceSelector();                     /* Get a selector string that will return all SPI controllers on the system */
-                var dis = await DeviceInformation.FindAllAsync(aqs);            /* Find the SPI bus controller devices with our selector string             */
-                BrickPiSPI = await SpiDevice.FromIdAsync(dis[0].Id, settings);    /* Create an SpiDevice with our bus controller and SPI settings             */
+                // as the SPI is a static, checking if it has already be initialised
                 if (BrickPiSPI == null)
                 {
-                    Debug.WriteLine(string.Format(
-                        "SPI Controller {0} is currently in use by " +
-                        "another application. Please ensure that no other applications are using SPI.",
-                        dis[0].Id));
-                    return;
+                    string aqs = SpiDevice.GetDeviceSelector();                     /* Get a selector string that will return all SPI controllers on the system */
+                    var dis = await DeviceInformation.FindAllAsync(aqs);            /* Find the SPI bus controller devices with our selector string             */
+                    BrickPiSPI = await SpiDevice.FromIdAsync(dis[0].Id, settings);    /* Create an SpiDevice with our bus controller and SPI settings             */
+                    if (BrickPiSPI == null)
+                    {
+                        Debug.WriteLine(string.Format(
+                            "SPI Controller {0} is currently in use by " +
+                            "another application. Please ensure that no other applications are using SPI.",
+                            dis[0].Id));
+                        return;
+                    }
                 }
                 BrickPi3Info = new BrickPiInfo();
                 BrickPi3Info.Manufacturer = get_manufacturer();
                 BrickPi3Info.Board = get_board();
                 BrickPi3Info.HardwareVersion = get_version_hardware();
                 BrickPi3Info.SoftwareVersion = get_version_firmware();
-                BrickPi3Info.Id = get_id();                
+                BrickPi3Info.Id = get_id();
             }
             catch (Exception ex)
             {

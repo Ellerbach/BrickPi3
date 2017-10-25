@@ -11,7 +11,17 @@
 
 namespace BrickPi3.Models
 {
-    public enum MOTOR_PORT : byte
+    public enum MOTOR_PORT: byte
+    {
+        // Used to select the ports for motors
+        PORT_A = 0x01,
+        PORT_B = 0x02,
+        PORT_C = 0x04,
+        PORT_D = 0x08
+    }
+
+    // Same as the previous one, used for the Motor and Vehicule high level classes
+    public enum BrickPortMotor : byte
     {
         // Used to select the ports for motors
         PORT_A = 0x01,

@@ -112,6 +112,8 @@
     <Compile Include="Models\Motors.cs" />
     <Compile Include="Models\Sensors.cs" />
     <Compile Include="Models\SPIMessages.cs" />
+    <Compile Include="Movement\Motor.cs" />
+    <Compile Include="Movement\Vehicule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SPIExceptions.cs" />
     <EmbeddedResource Include="Properties\BrickPi3.rd.xml" />
