@@ -1,0 +1,86 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BrickPi3.Models
+{
+    public enum SENSOR_PORT : byte
+    {
+        // Used to select the ports for sensors
+        PORT_1 = 0x01,
+        PORT_2 = 0x02,
+        PORT_3 = 0x04,
+        PORT_4 = 0x08,
+    }
+
+    public enum SENSOR_TYPE : byte
+    {
+        NONE = 1,
+        I2C,
+        CUSTOM,
+        TOUCH,
+        NXT_TOUCH,
+        EV3_TOUCH,
+        NXT_LIGHT_ON,
+        NXT_LIGHT_OFF,
+        NXT_COLOR_RED,
+        NXT_COLOR_GREEN,
+        NXT_COLOR_BLUE,
+        NXT_COLOR_FULL,
+        NXT_COLOR_OFF,
+        NXT_ULTRASONIC,
+        EV3_GYRO_ABS,
+        EV3_GYRO_DPS,
+        EV3_GYRO_ABS_DPS,
+        EV3_COLOR_REFLECTED,
+        EV3_COLOR_AMBIENT,
+        EV3_COLOR_COLOR,
+        EV3_COLOR_RAW_REFLECTED,
+        EV3_COLOR_COLOR_COMPONENTS,
+        EV3_ULTRASONIC_CM,
+        EV3_ULTRASONIC_INCHES,
+        EV3_ULTRASONIC_LISTEN,
+        EV3_INFRARED_PROXIMITY,
+        EV3_INFRARED_SEEK,
+        EV3_INFRARED_REMOTE
+    }
+
+    public enum SENSOR_STATE : byte
+    {
+        VALID_DATA = 0,
+        NOT_CONFIGURED,
+        CONFIGURING,
+        NO_DATA,
+        I2C_ERROR
+    }
+
+    //     Flags for use with SENSOR_TYPE.CUSTOM
+    // PIN1_9V
+    //     Enable 9V out on pin 1 (for LEGO NXT Ultrasonic sensor).
+    // PIN5_OUT
+    //     Set pin 5 state to output.Pin 5 will be set to input if this flag is not set.
+    //PIN5_STATE
+    //    If PIN5_OUT is set, this will set the state to output high, otherwise the state will
+    //    be output low.If PIN5_OUT is not set, this flag has no effect.
+    //PIN6_OUT
+    //    Set pin 6 state to output.Pin 6 will be set to input if this flag is not set.
+    //PIN6_STATE
+    //    If PIN6_OUT is set, this will set the state to output high, otherwise the state will
+    //    be output low.If PIN6_OUT is not set, this flag has no effect.
+    //PIN1_ADC
+    //    Enable the analog/digital converter on pin 1 (e.g. for NXT analog sensors).
+    // PIN6_ADC
+    //     Enable the analog/digital converter on pin 6.
+    public enum SENSOR_CUSTOM
+    {
+        PIN1_9V = 0x0002,
+        PIN5_OUT = 0x0010,
+        PIN5_STATE = 0x0020,
+        PIN6_OUT = 0x0100,
+        PIN6_STATE = 0x0200,
+        PIN1_ADC = 0x1000,
+        PIN6_ADC = 0x4000
+    }
+}
