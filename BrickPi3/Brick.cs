@@ -1,9 +1,18 @@
-﻿using BrickPi3.Models;
+﻿/*# https://www.dexterindustries.com/GoPiGo/
+# https://github.com/DexterInd/GoPiGo3
+#
+# Copyright (c) 2017 Dexter Industries
+# Released under the MIT license (http://choosealicense.com/licenses/mit/).
+# For more information see https://github.com/DexterInd/GoPiGo3/blob/master/LICENSE.md
+# Driver written by Laurent Ellerbach, more information on https://github.com/ellerbach/BrickPi3
+#
+# C# drivers for the BrickPi3
+*/
+
+using BrickPi3.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.Spi;
@@ -217,9 +226,9 @@ namespace BrickPi3
         public string get_manufacturer()
         {
             /*
-            Read the 20 charactor GoPiGo3 manufacturer name
+            Read the 20 charactor BrickPi3 manufacturer name
             Returns touple:
-            GoPiGo3 manufacturer name string, error
+            BrickPi3 manufacturer name string, error
             */
             string retVal = string.Empty;
 
@@ -251,9 +260,9 @@ namespace BrickPi3
         public string get_board()
         {
 
-            /*Read the 20 charactor GoPiGo3 board name
+            /*Read the 20 charactor BrcikPi3 board name
               Returns touple:
-              GoPiGo3 board name string, error
+              BrcikPi3 board name string, error
               */
             string retVal = string.Empty;
 
@@ -298,7 +307,7 @@ namespace BrickPi3
         public string get_id()
         {
 
-            /*  Read the 128 - bit GoPiGo3 hardware serial number
+            /*  Read the 128 - bit BrcikPi3 hardware serial number
 
                Returns touple:
                serial number as 32 char HEX formatted string, error

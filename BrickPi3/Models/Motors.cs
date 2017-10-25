@@ -1,8 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*# https://www.dexterindustries.com/GoPiGo/
+# https://github.com/DexterInd/GoPiGo3
+#
+# Copyright (c) 2017 Dexter Industries
+# Released under the MIT license (http://choosealicense.com/licenses/mit/).
+# For more information see https://github.com/DexterInd/GoPiGo3/blob/master/LICENSE.md
+# Driver written by Laurent Ellerbach, more information on https://github.com/ellerbach/BrickPi3
+#
+# C# drivers for the BrickPi3
+*/
 
 namespace BrickPi3.Models
 {
