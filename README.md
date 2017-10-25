@@ -6,7 +6,7 @@ There is nothing specif to do for BrickPi3 to run on Windows 10 IoT Core. Just i
 
 ## Make sure you have a BrickPi3
 There are multiple versions of BrickPi, this code is only working for BrickPi3. The main difference between the 2 BrickPi is the switch available close to the battery alimentation. If you have a switch, you have a BrickPi3.
-If you have a previous version, you can find the code on https://github.com/ellerbach/BrcikPi.
+If you have a previous version, you can find the code on https://github.com/ellerbach/BrickPi.
 
 ## Known limitations
 This version is a pure driver, so far no classes has been created, it does allow to access directly to all the features available into the board.
@@ -77,7 +77,7 @@ Debug.WriteLine($"9V: {voltage.Voltage9V}");
 Debug.WriteLine($"Battery voltage: {voltage.VoltageBattery}");
 ```
 
-### Sensors
+### Using sensors
 To setup a sensor, you need first to set the type of sensor then you can read the data. The below example setup an NXT Touch sensor on port 1 and read the results in continue.
 
 ```C#
@@ -103,7 +103,7 @@ for (int i = 0; i < 100; i++)
 
 Please note that the function ```get_sensor``` returns an array of byte, it's up to you to interpret correctly the data out of this function. Please read the documentation on https://www.dexterindustries.com/BrickPi/brickpi3-technical-design-details/brickpi3-communication-protocol/ to have the full details of what every sensor return.
 
-### using motors
+### Using motors
 There are many ways you can use motors, either by setting the power, either by reading the encoder, either by setting a degree per second speed. Those 3 examples has been implemented in test so you can see how to use them.
 
 #### Making a motor moving depending on the position of another motor
