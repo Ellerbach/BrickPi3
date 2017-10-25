@@ -27,15 +27,6 @@ namespace BrickPi3
         SENSOR_TYPE[] SensorType = { SENSOR_TYPE.NONE, SENSOR_TYPE.NONE, SENSOR_TYPE.NONE, SENSOR_TYPE.NONE };
         byte[] I2CInBytes = { 0, 0, 0, 0 };
 
-        public enum SENSOR_I2C_SETTINGS : byte
-        {
-            MID_CLOCK = 0x01,   //Send the clock pulse between reading and writing. Required by the NXT US sensor.
-            PIN1_9V = 0x02,     //9v pullup on pin 1
-            SAME = 0x04,        //Keep performing the same transaction e.g. keep polling a sensor
-            ALLOW_STRETCH_ACK,
-            ALLOW_STRETCH_ANY,
-        }
-
         //Initernals to initalize the SPI
         private SpiDevice BrickPiSPI = null;
         private const int CHIP_SELECT_lINE = 1;
@@ -58,6 +49,7 @@ namespace BrickPi3
             }
         }
         #endregion
+
         #region initi and reset
         public void InitSPI(byte spi_address = 1)
         {
@@ -378,6 +370,8 @@ namespace BrickPi3
             for (int i = 0; i < 16; i++)
                 outArray[3 + i] = id_arr[i];
             var ret = spi_transfer_array(outArray);
+            if (ret[3] == 0xA5)
+                SPI_Address = address;
         }
 
         public void set_led(byte percent)

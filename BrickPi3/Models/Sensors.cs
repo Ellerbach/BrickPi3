@@ -20,6 +20,15 @@ namespace BrickPi3.Models
         PORT_4 = 0x08,
     }
 
+    public enum SENSOR_I2C_SETTINGS : byte
+    {
+        MID_CLOCK = 0x01,   //Send the clock pulse between reading and writing. Required by the NXT US sensor.
+        PIN1_9V = 0x02,     //9v pullup on pin 1
+        SAME = 0x04,        //Keep performing the same transaction e.g. keep polling a sensor
+        ALLOW_STRETCH_ACK,
+        ALLOW_STRETCH_ANY,
+    }
+
     public enum SENSOR_TYPE : byte
     {
         NONE = 1,

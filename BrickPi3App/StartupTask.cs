@@ -31,14 +31,12 @@ namespace BrickPi3App
             brick.InitSPI();
             try
             {
-                //TestBrickDetails();
-                //TestSensors();
-                //TestRunMotors();
-                //TestMotorEncoder();
-                //TestMotorDPS();
+                TestBrickDetails();
+                TestSensors();
+                TestRunMotors();
+                TestMotorEncoder();
+                TestMotorDPS();
                 TestMotorPosition();
-
-
             }
             catch (Exception ex)
             {
@@ -78,7 +76,7 @@ namespace BrickPi3App
         private void TestMotorDPS()
         {
             //
-            // Test Mortr Degre Per Second (DPS)
+            // Test Mortor Degree Per Second (DPS)
             //
             brick.offset_motor_encoder((byte)MOTOR_PORT.PORT_D, brick.get_motor_encoder((byte)MOTOR_PORT.PORT_D));
             brick.offset_motor_encoder((byte)MOTOR_PORT.PORT_A, brick.get_motor_encoder((byte)MOTOR_PORT.PORT_A));
@@ -114,7 +112,7 @@ namespace BrickPi3App
         private void TestBrickDetails()
         {
             //
-            //Get the details abourt the brick
+            // Get the details abourt the brick
             //
             var brickinfo = brick.BrickPi3Info;
             Debug.WriteLine($"Manufacturer: {brickinfo.Manufacturer}");
