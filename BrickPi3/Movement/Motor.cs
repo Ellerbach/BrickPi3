@@ -117,28 +117,36 @@ namespace BrickPi3.Movement
         /// <param name="polarity">Polarity of the motor, backward, forward or opposite</param>
         public void SetPolarity(Polarity polarity)
         {
-            var motorstatus = brick.get_motor_status((byte)Port);
-            switch (polarity)
-            {              
-                case Polarity.Backward:
-                    //if (brick.BrickPi.Motor[(int)Port].Speed > 0)
-                    //    brick.BrickPi.Motor[(int)Port].Speed = -brick.BrickPi.Motor[(int)Port].Speed;
-                    if (motorstatus.Speed > 0)
-                        brick.set_motor_power((byte)Port, - Speed);
-                    break;
-                case Polarity.Forward:
-                    //if (brick.BrickPi.Motor[(int)Port].Speed < 0)
-                    //    brick.BrickPi.Motor[(int)Port].Speed = -brick.BrickPi.Motor[(int)Port].Speed;
-                    if (motorstatus.Speed < 0)
+            try
+            {
+                var motorstatus = brick.get_motor_status((byte)Port);
+                switch (polarity)
+                {
+                    case Polarity.Backward:
+                        //if (brick.BrickPi.Motor[(int)Port].Speed > 0)
+                        //    brick.BrickPi.Motor[(int)Port].Speed = -brick.BrickPi.Motor[(int)Port].Speed;
+                        if (motorstatus.Speed > 0)
+                            brick.set_motor_power((byte)Port, -Speed);
+                        break;
+                    case Polarity.Forward:
+                        //if (brick.BrickPi.Motor[(int)Port].Speed < 0)
+                        //    brick.BrickPi.Motor[(int)Port].Speed = -brick.BrickPi.Motor[(int)Port].Speed;
+                        if (motorstatus.Speed < 0)
+                            brick.set_motor_power((byte)Port, -Speed);
+                        break;
+                    case Polarity.OppositeDirection:
+                        //brick.BrickPi.Motor[(int)Port].Speed = -brick.BrickPi.Motor[(int)Port].Speed;
                         brick.set_motor_power((byte)Port, -Speed);
-                    break;
-                case Polarity.OppositeDirection:
-                    //brick.BrickPi.Motor[(int)Port].Speed = -brick.BrickPi.Motor[(int)Port].Speed;
-                    brick.set_motor_power((byte)Port, -Speed);
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
             }
+            catch (Exception)
+            {
+                //nothing
+            }
+           
         }
 
         /// <summary>
@@ -148,7 +156,15 @@ namespace BrickPi3.Movement
         public Int32 GetTachoCount()
         {
             //return brick.BrickPi.Motor[(int)Port].Encoder;
-            return brick.get_motor_encoder((byte)Port);
+            try
+            {
+                return brick.get_motor_encoder((byte)Port);
+            }
+            catch (Exception)
+            {
+                return Int32.MaxValue;
+            }
+            
         }
 
         /// <summary>
@@ -172,7 +188,11 @@ namespace BrickPi3.Movement
 
         private void OnPropertyChanged(string name)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
         }
 
         /// <summary>

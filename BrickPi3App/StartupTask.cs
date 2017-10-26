@@ -37,7 +37,7 @@ namespace BrickPi3App
                 // Tests directly using the brick low level driver
                 //
                 //TestBrickDetails();
-                //TestSensors();
+                TestSensors();
                 //TestRunMotors();
                 //TestMotorEncoder();
                 //TestMotorDPS();
@@ -49,6 +49,16 @@ namespace BrickPi3App
                 //TestMotor().Wait();
                 //TestMotorEvents();
                 //TestVehicule().Wait();
+                //
+                // Test using high level calsses for sensosrs
+                //
+                //TestMultipleSensorsTouchCSSoud().Wait();
+                //TestEV3Color().Wait();
+                //TestTouch();
+                //TestIRSensor().Wait();
+                //TestNXTUS().Wait();
+                //TestNXTLight().Wait();
+                //TestNXTCS().Wait();
             }
             catch (Exception ex)
             {

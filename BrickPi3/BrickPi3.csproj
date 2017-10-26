@@ -107,6 +107,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Brick.cs" />
+    <Compile Include="Extensions\EnumExtension.cs" />
     <Compile Include="Models\BrickPiInfo.cs" />
     <Compile Include="Models\BrickPiVoltage.cs" />
     <Compile Include="Models\Motors.cs" />
@@ -115,6 +116,17 @@
     <Compile Include="Movement\Motor.cs" />
     <Compile Include="Movement\Vehicule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sensors\EV3ColorSensor.cs" />
+    <Compile Include="Sensors\EV3GyroSensor.cs" />
+    <Compile Include="Sensors\EV3IRSensor.cs" />
+    <Compile Include="Sensors\EV3TouchSensor.cs" />
+    <Compile Include="Sensors\EV3UltraSonicSensor.cs" />
+    <Compile Include="Sensors\ISensor.cs" />
+    <Compile Include="Sensors\NXTColorSensor.cs" />
+    <Compile Include="Sensors\NXTLightSensor.cs" />
+    <Compile Include="Sensors\NXTSoundSensor.cs" />
+    <Compile Include="Sensors\NXTTouchSensor.cs" />
+    <Compile Include="Sensors\NXTUltraSonicSensor.cs" />
     <Compile Include="SPIExceptions.cs" />
     <EmbeddedResource Include="Properties\BrickPi3.rd.xml" />
   </ItemGroup>

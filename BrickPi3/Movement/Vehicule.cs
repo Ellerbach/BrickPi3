@@ -72,7 +72,7 @@ namespace BrickPi3.Movement
         /// <param name="degrees">degrees to turn each motor</param>
         public void TurnLeft(int speed, int degrees)
         {
-            RunMotorSyncDegrees(new BrickPortMotor[2] { portleft, PortRight }, new int[2] { -speed * correctedDir, speed * correctedDir }, new int[2] { degrees, degrees } ).Wait();
+            RunMotorSyncDegrees(new BrickPortMotor[2] { portleft, PortRight }, new int[2] { -speed * correctedDir, speed * correctedDir }, new int[2] { degrees, degrees }).Wait();
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace BrickPi3.Movement
             }
         }
 
-        private Timer timer=null;
+        private Timer timer = null;
         private async Task RunMotorSyncTime(BrickPortMotor[] ports, int[] speeds, int timeout)
         {
             if ((ports == null) || (speeds == null))
@@ -180,15 +180,15 @@ namespace BrickPi3.Movement
             else
                 timer.Change(TimeSpan.FromMilliseconds(timeout), Timeout.InfiniteTimeSpan);
             //initialize the speed and enable motors
-            for(int i=0; i<ports.Length; i++)
+            for (int i = 0; i < ports.Length; i++)
             {
                 StartMotor((int)ports[i], speeds[i]);
             }
             bool nonstop = true;
-            while(nonstop)
+            while (nonstop)
             {
                 bool status = false;
-                for (int i=0; i<ports.Length;i++)
+                for (int i = 0; i < ports.Length; i++)
                 {
                     status |= IsRunning(ports[i]);
                 }
@@ -208,7 +208,7 @@ namespace BrickPi3.Movement
             {
                 StopMotor((int)ports[i]);
             }
-            if(timer!=null)
+            if (timer != null)
             {
                 timer.Dispose();
                 timer = null;
@@ -247,33 +247,45 @@ namespace BrickPi3.Movement
             int[] initval = new int[ports.Length];
             for (int i = 0; i < ports.Length; i++)
             {
-                initval[i] = brick.get_motor_encoder((byte)ports[i]); //brick.BrickPi.Motor[(int)ports[i]].Encoder;
-                StartMotor((int)ports[i], speeds[i]);
+                try
+                {
+                    initval[i] = brick.get_motor_encoder((byte)ports[i]); //brick.BrickPi.Motor[(int)ports[i]].Encoder;
+                    StartMotor((int)ports[i], speeds[i]);
+                }
+                catch (Exception)
+                { }
+
             }
             bool nonstop = true;
-            while(nonstop)
+            while (nonstop)
             {
-                bool status = false;
-                for (int i = 0; i < ports.Length; i++)
+                try
                 {
-                    if (speeds[i] > 0)
+                    bool status = false;
+                    for (int i = 0; i < ports.Length; i++)
                     {
-                        //if (brick.BrickPi.Motor[(int)ports[i]].Encoder >= (initval[i] + degrees[i] * 2))
-                        if (brick.get_motor_encoder((byte)ports[i]) >= (initval[i] + degrees[i] * 2))
+                        if (speeds[i] > 0)
                         {
-                            StopMotor((int)ports[i]);
+                            //if (brick.BrickPi.Motor[(int)ports[i]].Encoder >= (initval[i] + degrees[i] * 2))
+                            if (brick.get_motor_encoder((byte)ports[i]) >= (initval[i] + degrees[i] * 2))
+                            {
+                                StopMotor((int)ports[i]);
+                            }
                         }
-                    } else
-                    {
-                        //if (brick.BrickPi.Motor[(int)ports[i]].Encoder <= (initval[i] - degrees[i] * 2))
-                        if (brick.get_motor_encoder((byte)ports[i]) <= (initval[i] - degrees[i] * 2))                            
+                        else
                         {
-                            StopMotor((int)ports[i]);
+                            //if (brick.BrickPi.Motor[(int)ports[i]].Encoder <= (initval[i] - degrees[i] * 2))
+                            if (brick.get_motor_encoder((byte)ports[i]) <= (initval[i] - degrees[i] * 2))
+                            {
+                                StopMotor((int)ports[i]);
+                            }
                         }
+                        status |= IsRunning(ports[i]);
                     }
-                    status |= IsRunning(ports[i]);
+                    nonstop = status;
                 }
-                nonstop = status;
+                catch (Exception)
+                { }
             }
 
 
@@ -292,8 +304,13 @@ namespace BrickPi3.Movement
         private bool IsRunning(BrickPortMotor port)
         {
             //if (brick.BrickPi.Motor[(int)port].Enable == 0)
-            if (brick.get_motor_status((byte)port).Speed == 0)
-                return false;
+            try
+            {
+                if (brick.get_motor_status((byte)port).Speed == 0)
+                    return false;
+            }
+            catch (Exception)
+            { }
             return true;
         }
     }

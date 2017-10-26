@@ -544,6 +544,8 @@ namespace BrickPi3
                 reply = spi_transfer_array(outArray.ToArray());
                 if (reply[3] == 0xA5)
                 {
+                    // if (reply[4] == self.SensorType[port_index] or (self.SensorType[port_index] == self.SENSOR_TYPE.TOUCH and (reply[4] == self.SENSOR_TYPE.NXT_TOUCH or reply[4] == self.SENSOR_TYPE.EV3_TOUCH))) and reply[5] == self.SENSOR_STATE.VALID_DATA
+
                     if (((reply[4] == (int)SensorType[port_index]) || ((SensorType[port_index] == SENSOR_TYPE.TOUCH) && ((reply[4] == (int)SENSOR_TYPE.NXT_TOUCH)
                         || (reply[4] == (int)SENSOR_TYPE.EV3_TOUCH)))) && (reply[5] == (int)SENSOR_STATE.VALID_DATA))
                         return new byte[] { reply[6] };

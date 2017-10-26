@@ -11,6 +11,9 @@
 
 namespace BrickPi3.Models
 {
+    /// <summary>
+    /// Sensor ports 1, 2, 3 and 4
+    /// </summary>
     public enum SENSOR_PORT : byte
     {
         // Used to select the ports for sensors
@@ -20,6 +23,22 @@ namespace BrickPi3.Models
         PORT_4 = 0x08,
     }
 
+    /// <summary>
+    /// Sensor ports 1, 2, 3 and 4
+    /// </summary>
+    public enum BrickPortSensor
+    {
+        PORT_S1 = 0x01,
+        PORT_S2 = 0x02,
+        PORT_S3 = 0x04,
+        PORT_S4 = 0x08
+    }
+
+    /// <summary>
+    /// MID_CLOCK = 0x01,   Send the clock pulse between reading and writing. Required by the NXT US sensor.
+    /// PIN1_9V = 0x02,     9v pullup on pin 1
+    /// SAME = 0x04,        Keep performing the same transaction e.g. keep polling a sensor
+    /// </summary>
     public enum SENSOR_I2C_SETTINGS : byte
     {
         MID_CLOCK = 0x01,   //Send the clock pulse between reading and writing. Required by the NXT US sensor.
@@ -29,6 +48,9 @@ namespace BrickPi3.Models
         ALLOW_STRETCH_ANY,
     }
 
+    /// <summary>
+    /// All type of supported sensors
+    /// </summary>
     public enum SENSOR_TYPE : byte
     {
         NONE = 1,
@@ -61,6 +83,10 @@ namespace BrickPi3.Models
         EV3_INFRARED_REMOTE
     }
 
+    /// <summary>
+    /// Maind state for data when returned by any of the get_ function
+    /// Used internally by the brick engine
+    /// </summary>
     public enum SENSOR_STATE : byte
     {
         VALID_DATA = 0,
@@ -69,24 +95,25 @@ namespace BrickPi3.Models
         NO_DATA,
         I2C_ERROR
     }
-
-    //     Flags for use with SENSOR_TYPE.CUSTOM
-    // PIN1_9V
-    //     Enable 9V out on pin 1 (for LEGO NXT Ultrasonic sensor).
-    // PIN5_OUT
-    //     Set pin 5 state to output.Pin 5 will be set to input if this flag is not set.
-    //PIN5_STATE
-    //    If PIN5_OUT is set, this will set the state to output high, otherwise the state will
-    //    be output low.If PIN5_OUT is not set, this flag has no effect.
-    //PIN6_OUT
-    //    Set pin 6 state to output.Pin 6 will be set to input if this flag is not set.
-    //PIN6_STATE
-    //    If PIN6_OUT is set, this will set the state to output high, otherwise the state will
-    //    be output low.If PIN6_OUT is not set, this flag has no effect.
-    //PIN1_ADC
-    //    Enable the analog/digital converter on pin 1 (e.g. for NXT analog sensors).
-    // PIN6_ADC
-    //     Enable the analog/digital converter on pin 6.
+    /// <summary>
+    ///     Flags for use with SENSOR_TYPE.CUSTOM
+    /// PIN1_9V
+    ///     Enable 9V out on pin 1 (for LEGO NXT Ultrasonic sensor).
+    /// PIN5_OUT
+    ///     Set pin 5 state to output.Pin 5 will be set to input if this flag is not set.
+    /// PIN5_STATE
+    ///    If PIN5_OUT is set, this will set the state to output high, otherwise the state will
+    ///    be output low.If PIN5_OUT is not set, this flag has no effect.
+    /// PIN6_OUT
+    ///    Set pin 6 state to output.Pin 6 will be set to input if this flag is not set.
+    /// PIN6_STATE
+    ///    If PIN6_OUT is set, this will set the state to output high, otherwise the state will
+    ///    be output low.If PIN6_OUT is not set, this flag has no effect.
+    /// PIN1_ADC
+    ///    Enable the analog/digital converter on pin 1 (e.g. for NXT analog sensors).
+    /// PIN6_ADC
+    ///     Enable the analog/digital converter on pin 6.
+    /// </summary>
     public enum SENSOR_CUSTOM
     {
         PIN1_9V = 0x0002,

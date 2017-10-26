@@ -96,6 +96,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="MotorTests.cs" />
+    <Compile Include="SensorTests.cs" />
     <Compile Include="StartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
